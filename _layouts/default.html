@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    <a id="avatar" class="js-menu" title="Menu">
+      <span class="about"></span>
+    </a>
+
+    <div class="container">
+
+      <div class="content-container" data-shift>
+
+        <div class="content">
+          {{ content }}
+        </div>
+
+      </div>
+
+      <div class="navigation" data-shift-nav>
+        {% include navigation.html %}
+      </div>
+
+    </div>
+
+    {% include footer.html %}
+
+  </body>
+
+</html>
