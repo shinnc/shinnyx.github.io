@@ -45,24 +45,30 @@ $(window).scroll(function(){
 });
 
 $(document).ready(function(){
-  loadDefault();
+  initToggleableMenu();
 });
 
 $(window).on('resize', function() {
-  loadDefault();
+  initToggleableMenu();
 });
 
-loadDefault = function() {
+initToggleableMenu = function() {
   $('.js-menu').on('click', function(e){
-    if ( $(window).width() > 961 )
-      return;
+    // See http://stackoverflow.com/a/21053259
+    e.stopImmediatePropagation();
+    toggleMenu();
+  });
 
+  $('#site-nav li a').on('click', function(e){
+    e.stopImmediatePropagation();
+    toggleMenu();
+  });
+}
+
+toggleMenu = function() {
+  if ( $(window).width() < 961 ) {
     $('div[data-shift]').toggleClass('shift');
     $('div[data-shift-nav]').toggleClass('shift-nav');
     $('hr[data-shift-line]').toggleClass('shift-line');
-  });
-
-  $('#site-nav li a').on('click', function(){
-    $('.js-menu').click();
-  });
+  }
 }
