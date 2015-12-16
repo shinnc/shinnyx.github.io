@@ -3,6 +3,7 @@ layout: post
 title:  "Debug the unknown with git bisect"
 slug:   "debug-the-unknown-with-git-bisect"
 date:   2015-12-02 13:55:06
+comments: true
 categories: Git Coding Debugging
 ---
 

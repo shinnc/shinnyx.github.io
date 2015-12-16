@@ -3,6 +3,7 @@ layout: post
 title:  "Setting Heroku apps URL in Review App"
 slug:   "setting-heroku-apps-url-in-review-app"
 date:   2015-11-26 23:47:06
+comments: true
 categories: Heroku Ruby Rails
 ---
 
