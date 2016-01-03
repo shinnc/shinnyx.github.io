@@ -141,6 +141,7 @@ DEPENDENCIES
   bourbon
   github-pages
   jekyll
+  jemoji
   neat
   yajl-ruby
 

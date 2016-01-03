@@ -8,3 +8,4 @@ gem 'bourbon'
 gem 'neat'
 
 gem 'yajl-ruby'
+gem 'jemoji'
