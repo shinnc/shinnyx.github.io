@@ -122,10 +122,11 @@ a[href]
 
 .post-list
   list-style-type: none
-  li:not(:last-child)
-    padding-bottom: 80px
+  li
     margin-bottom: 80px
-    border-bottom: 1px dashed #ccc
+    &:not(:last-child)
+      padding-bottom: 80px
+      border-bottom: 1px dashed #ccc
 
 .comments
   margin-bottom: 80px
