@@ -64,7 +64,7 @@ a[href]
   position: relative
   transition: all 400ms ease 0s
   right: 0
-  /*margin-top: 50px
+  margin-top: 50px
 
 .content
   margin: 15% auto 0
@@ -122,9 +122,10 @@ a[href]
 
 .post-list
   list-style-type: none
-
-.p
-  /*margin-bottom: 20%*/
+  li:not(:last-child)
+    padding-bottom: 80px
+    margin-bottom: 80px
+    border-bottom: 1px dashed #ccc
 
 .about
   background: url('images/avatar.jpg') no-repeat top left
