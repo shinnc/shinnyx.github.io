@@ -18,7 +18,4 @@ gems:
   - neat
   - jemoji
 
-# Not supported by GitHub Pages yet.
-# https://help.github.com/articles/page-build-failed-config-file-error/#highlighting-errors
-# highlighter: rogue
-highlighter: pygments
+highlighter: rogue
