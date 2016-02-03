@@ -18,4 +18,4 @@ gems:
   - neat
   - jemoji
 
-highlighter: rogue
+highlighter: rouge
