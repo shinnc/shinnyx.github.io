@@ -2,7 +2,7 @@
 layout: post
 title:  "Setting up GPG for Git"
 slug:   "setting-up-gpg-for-git"
-date:   2016-04-30 11:31:00
+date:   2016-04-30 11:31:00 +08:00
 comments: true
 categories: Git Coding GPG OSX
 ---
