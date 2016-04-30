@@ -9,3 +9,4 @@ gem 'neat'
 
 gem 'yajl-ruby'
 gem 'jemoji'
+gem 'rouge'
