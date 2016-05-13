@@ -134,7 +134,6 @@ DEPENDENCIES
   bourbon
   github-pages
   jekyll
-  jekyll-seo-tag
   jemoji
   neat
   rouge

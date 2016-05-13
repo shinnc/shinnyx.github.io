@@ -10,5 +10,3 @@ gem 'neat'
 gem 'yajl-ruby'
 gem 'jemoji'
 gem 'rouge'
-
-gem 'jekyll-seo-tag'
