@@ -9,7 +9,7 @@ categories: Git Coding GPG OSX
 
 Earlier this month GitHub launched a new feature, [GPG signature verification](https://github.com/blog/2144-gpg-signature-verification) which would add a verified tag for each commit that signed with GPG.
 
-<img alt="GitHub verified signature" src="https://cloud.githubusercontent.com/assets/25792/14290042/5b27dab2-fb12-11e5-9ff9-44116a7780ea.png" width="600" />
+<img alt="GitHub verified signature" src="https://cloud.githubusercontent.com/assets/25792/14290042/5b27dab2-fb12-11e5-9ff9-44116a7780ea.png" class="content" />
 
 This feature is especially useful when you're working on a shared computer, where you want to prevent others to commit on your behalf (no, that spaghetti code wasn't mine) by verifying with a passphase whenever you make a commit; Or if you were like me, having a _Verified_ label on your commits on GitHub looks pretty cool yo.
 
