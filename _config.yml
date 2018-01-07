@@ -10,17 +10,10 @@ github_username:  shinnyx
 
 timezone: "Asia/Singapore"
 
-# Build settings
-markdown: kramdown
-
 paginate: 20
 paginate_path: "/page/:num/"
 
-gems:
-  - neat
-  - jemoji
+plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-paginate
-
-highlighter: rouge
