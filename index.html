@@ -1,28 +1,589 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="home">
+  <title>LifeInspect — Inspect your life.</title>
 
-  <ul class="post-list">
-    {% for post in paginator.posts %}
-      <li class="post-entity">
-        <!-- <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span> -->
+  <meta
+    name="description"
+    content="LifeInspect is a new way to understand how your life changes over time."
+  >
 
-        <h2 id="{{ post.slug }}">
-          <a class="post-title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-        <a class="post-content" >{{ post.content }}</a>
-      </li>
-    {% endfor %}
-    <!--
-    <li>
-      {% include about.html %}
-    </li>
-    -->
-  </ul>
+  <meta name="theme-color" content="#080808">
 
-<!--Subscribe via RSS-->
-<!--<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>-->
+  <style>
+    :root {
+      --bg: #080808;
+      --text: #f4f4f1;
+      --muted: #7b7b76;
+      --dim: #3c3c39;
+      --border: rgba(255, 255, 255, 0.08);
+      --glow: rgba(215, 255, 179, 0.08);
+      --green: #c9ffa4;
+    }
 
-</div>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      min-height: 100svh;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at 50% 42%,
+          var(--glow),
+          transparent 33%
+        );
+
+      opacity: 0.9;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,0.018) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.018) 1px,
+          transparent 1px
+        );
+
+      background-size: 44px 44px;
+
+      mask-image:
+        radial-gradient(
+          circle at center,
+          black,
+          transparent 75%
+        );
+    }
+
+    .page {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .mark {
+      width: 12px;
+      height: 12px;
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .mark::after {
+      content: "";
+      position: absolute;
+      width: 3px;
+      height: 3px;
+
+      background: var(--green);
+      border-radius: 50%;
+
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      box-shadow:
+        0 0 10px rgba(201,255,164,.8);
+    }
+
+    .status {
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+
+      animation: pulse 2.8s ease-in-out infinite;
+    }
+
+    main {
+      flex: 1;
+
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+
+      padding:
+        11vh
+        36px
+        6vh;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+
+      margin-bottom: 27px;
+    }
+
+    h1 {
+      font-size:
+        clamp(
+          56px,
+          10vw,
+          135px
+        );
+
+      line-height: 0.88;
+      letter-spacing: -0.07em;
+      font-weight: 500;
+
+      max-width: 980px;
+      margin: 0;
+    }
+
+    .dot {
+      color: var(--green);
+    }
+
+    .intro {
+      margin-top: 43px;
+
+      max-width: 580px;
+
+      font-size:
+        clamp(
+          17px,
+          2vw,
+          21px
+        );
+
+      line-height: 1.55;
+      letter-spacing: -0.018em;
+
+      color: #a6a6a0;
+    }
+
+    .terminal {
+      margin-top: 65px;
+
+      width: min(
+        100%,
+        690px
+      );
+
+      border-top: 1px solid var(--border);
+      padding-top: 21px;
+
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      font-size: 13px;
+      line-height: 1.9;
+
+      color: var(--muted);
+    }
+
+    .terminal-row {
+      min-height: 25px;
+    }
+
+    .prompt {
+      color: var(--green);
+      margin-right: 9px;
+    }
+
+    #question {
+      color: #d8d8d3;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 15px;
+
+      vertical-align: -2px;
+      margin-left: 3px;
+
+      background: #aaa;
+
+      animation: blink 1s steps(1) infinite;
+    }
+
+    .response {
+      color: #555550;
+    }
+
+    footer {
+      width: 100%;
+      max-width: 1200px;
+
+      margin: 0 auto;
+      padding: 28px 36px 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      font-size: 11px;
+      color: #454541;
+    }
+
+    .footer-right {
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      letter-spacing: 0.04em;
+    }
+
+    @keyframes blink {
+      0%,
+      48% {
+        opacity: 1;
+      }
+
+      49%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: .35;
+        box-shadow: 0 0 0 0 rgba(201,255,164,0);
+      }
+
+      50% {
+        opacity: 1;
+        box-shadow: 0 0 10px 2px rgba(201,255,164,.15);
+      }
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding: 24px 22px;
+      }
+
+      main {
+        padding:
+          8vh
+          22px
+          5vh;
+      }
+
+      h1 {
+        font-size:
+          clamp(
+            57px,
+            18vw,
+            86px
+          );
+
+        letter-spacing: -0.065em;
+      }
+
+      .intro {
+        margin-top: 32px;
+        font-size: 16px;
+      }
+
+      .terminal {
+        margin-top: 48px;
+        font-size: 11px;
+      }
+
+      footer {
+        padding: 22px;
+
+        align-items: flex-end;
+        gap: 20px;
+      }
+
+      .status span:last-child {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor,
+      .status-dot {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header>
+      <div class="brand">
+        <span class="mark"></span>
+        LifeInspect
+      </div>
+
+      <div class="status">
+        <span class="status-dot"></span>
+        <span>System under construction</span>
+      </div>
+    </header>
+
+    <main>
+
+      <div class="eyebrow">
+        Personal observability
+      </div>
+
+      <h1>
+        Inspect<br>
+        your life<span class="dot">.</span>
+      </h1>
+
+      <div class="intro">
+        Your life leaves traces everywhere.
+        We're building a way to connect them,
+        inspect what changed, and understand
+        the person you're becoming.
+      </div>
+
+      <div class="terminal">
+
+        <div class="terminal-row">
+          <span class="prompt">›</span>
+          <span id="question"></span>
+          <span class="cursor" id="cursor"></span>
+        </div>
+
+        <div
+          class="terminal-row response"
+          id="response"
+        ></div>
+
+      </div>
+
+    </main>
+
+    <footer>
+
+      <div>
+        © 2026 LifeInspect
+      </div>
+
+      <div class="footer-right">
+        timeline · diff · trace · understand
+      </div>
+
+    </footer>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question:
+          "what changed about me this year?",
+        answer:
+          "Scanning the difference between then and now…"
+      },
+      {
+        question:
+          "where did my time actually go?",
+        answer:
+          "Reconstructing 8,760 hours…"
+      },
+      {
+        question:
+          "who have I become?",
+        answer:
+          "Comparing versions of you…"
+      },
+      {
+        question:
+          "what am I not noticing?",
+        answer:
+          "Looking for patterns hiding in plain sight…"
+      }
+    ];
+
+    const questionEl =
+      document.getElementById("question");
+
+    const responseEl =
+      document.getElementById("response");
+
+    const cursorEl =
+      document.getElementById("cursor");
+
+    const sleep = ms =>
+      new Promise(resolve =>
+        setTimeout(resolve, ms)
+      );
+
+    async function typeText(
+      element,
+      text,
+      speed = 45
+    ) {
+      element.textContent = "";
+
+      for (
+        let i = 0;
+        i < text.length;
+        i++
+      ) {
+        element.textContent += text[i];
+
+        await sleep(
+          speed +
+          Math.random() * 35
+        );
+      }
+    }
+
+    async function runTerminal() {
+      let index = 0;
+
+      while (true) {
+        const item =
+          questions[index];
+
+        responseEl.textContent = "";
+
+        cursorEl.style.display =
+          "inline-block";
+
+        await typeText(
+          questionEl,
+          item.question
+        );
+
+        await sleep(650);
+
+        responseEl.textContent =
+          item.answer;
+
+        await sleep(3300);
+
+        responseEl.textContent =
+          "";
+
+        await sleep(250);
+
+        questionEl.textContent =
+          "";
+
+        await sleep(450);
+
+        index =
+          (index + 1) %
+          questions.length;
+      }
+    }
+
+    const reduceMotion =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+    if (reduceMotion) {
+      questionEl.textContent =
+        "who have I become?";
+
+      responseEl.textContent =
+        "Comparing versions of you…";
+
+      cursorEl.style.display =
+        "none";
+    } else {
+      runTerminal();
+    }
+  </script>
+</body>
+</html>
